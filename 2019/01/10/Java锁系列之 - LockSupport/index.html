@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java,学习,lock,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="菜鸟的成神之旅">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="LockSupport jdk源码实例: 123456789101112131415161718192021222324252627282930   Here is a sketch of a first-in-first-out non-reentrant lock class:这是一个先进先出的不可重入锁实例:    * class FIFOMutex &amp;#123;    *   priva">
+<meta name="keywords" content="java,学习,lock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java锁系列之 - LockSupport">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/Java锁系列之 - LockSupport/index.html">
 <meta property="og:site_name" content="菜鸟的成神之旅">
+<meta property="og:description" content="LockSupport jdk源码实例: 123456789101112131415161718192021222324252627282930   Here is a sketch of a first-in-first-out non-reentrant lock class:这是一个先进先出的不可重入锁实例:    * class FIFOMutex &amp;#123;    *   priva">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/assets/blogimg/LockSupport.png">
+<meta property="og:updated_time" content="2019-01-10T06:31:27.740Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜鸟的成神之旅">
+<meta name="twitter:title" content="Java锁系列之 - LockSupport">
+<meta name="twitter:description" content="LockSupport jdk源码实例: 123456789101112131415161718192021222324252627282930   Here is a sketch of a first-in-first-out non-reentrant lock class:这是一个先进先出的不可重入锁实例:    * class FIFOMutex &amp;#123;    *   priva">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogimg/LockSupport.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/Java锁系列之 - LockSupport/">
 
 
 
 
 
-  <title>菜鸟的成神之旅</title>
+  <title>Java锁系列之 - LockSupport | 菜鸟的成神之旅</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -244,9 +250,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -276,9 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/Java锁系列之 - LockSupport/" itemprop="url">Java锁系列之 - LockSupport</a></h1>
+          <h1 class="post-title" itemprop="name headline">Java锁系列之 - LockSupport</h1>
         
 
         <div class="post-meta">
@@ -361,338 +365,26 @@
       
 
       
-        
-          <p><img src="/assets/blogimg/LockSupport.png" alt=""></p>
+        <p><img src="/assets/blogimg/LockSupport.png" alt=""></p>
 <h4 id="LockSupport"><a href="#LockSupport" class="headerlink" title="LockSupport"></a>LockSupport</h4><ul>
 <li><p>jdk源码实例:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">   Here is a sketch of a first-in-first-out non-reentrant lock class:</span><br><span class="line">这是一个先进先出的不可重入锁实例:</span><br><span class="line">    * <span class="class"><span class="keyword">class</span> <span class="title">FIFOMutex</span> </span>&#123;</span><br><span class="line">    *   <span class="keyword">private</span> <span class="keyword">final</span> AtomicBoolean locked = <span class="keyword">new</span> AtomicBoolean(<span class="keyword">false</span>);</span><br><span class="line">    *   <span class="keyword">private</span> <span class="keyword">final</span> Queue&lt;Thread&gt; waiters</span><br><span class="line">    *     = <span class="keyword">new</span> ConcurrentLinkedQueue&lt;Thread&gt;();</span><br><span class="line">    *</span><br><span class="line">    *   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    *     <span class="keyword">boolean</span> wasInterrupted = <span class="keyword">false</span>;</span><br><span class="line">    *     Thread current = Thread.currentThread();</span><br><span class="line">    *     waiters.add(current);</span><br><span class="line">    *</span><br><span class="line">    *     <span class="comment">// Block while not first in queue or cannot acquire lock</span></span><br><span class="line">    *     <span class="keyword">while</span> (waiters.peek() != current ||</span><br><span class="line">    *            !locked.compareAndSet(<span class="keyword">false</span>, <span class="keyword">true</span>)) &#123;</span><br><span class="line">    *       LockSupport.park(<span class="keyword">this</span>);</span><br><span class="line">    *       <span class="keyword">if</span> (Thread.interrupted()) <span class="comment">// ignore interrupts while waiting</span></span><br><span class="line">    *         wasInterrupted = <span class="keyword">true</span>;</span><br><span class="line">    *     &#125;</span><br><span class="line">    *</span><br><span class="line">    *     waiters.remove();</span><br><span class="line">    *     <span class="keyword">if</span> (wasInterrupted)          <span class="comment">// reassert interrupt status on exit</span></span><br><span class="line">    *       current.interrupt();</span><br><span class="line">    *   &#125;</span><br><span class="line">    *</span><br><span class="line">    *   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    *     locked.set(<span class="keyword">false</span>);</span><br><span class="line">    *     LockSupport.unpark(waiters.peek());</span><br><span class="line">    *   &#125;</span><br><span class="line">    * &#125;&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/10/Java锁系列之 - LockSupport/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/java中的volatile和synchroized/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Carl Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜鸟的成神之旅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/09/java中的volatile和synchroized/" itemprop="url">java中的volatile和synchroized</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T11:27:00+08:00">
-                2019-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/assets/blogimg/哥布林杀手.jpg" alt=""></p>
-<h3 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h3><p><code>java memory model</code></p>
-<p>并发过程中如何处理可见性,原子性,有序性的问题<br>并发编程中的两个关键问题</p>
-<ul>
-<li><p>线程之间怎么通信</p>
-<ul>
-<li>共享内存 - 隐式通信</li>
-<li>消息传递 - 显式通信</li>
-</ul>
+<a id="more"></a>
 </li>
-<li><p>线程之间怎么同步</p>
-<p> 在共享内存的并发模型中,同步是显式做的</p>
-<p> 在消息传递的并发模型中,由于消息的发送必须在消息接收之前,所以同步是隐式</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/09/java中的volatile和synchroized/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-    
-    
-    
+<li><p>unpark</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Makes available the permit for the given thread, if it</span></span><br><span class="line"><span class="comment">    * was not already available.  If the thread was blocked on</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@code</span> park&#125; then it will unblock.  Otherwise, its next call</span></span><br><span class="line"><span class="comment">    * to &#123;<span class="doctag">@code</span> park&#125; is guaranteed not to block. This operation</span></span><br><span class="line"><span class="comment">    * is not guaranteed to have any effect at all if the given</span></span><br><span class="line"><span class="comment">    * thread has not been started.</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    * 如果指定的线程处于park状态，就给他个许可让他不再阻塞</span></span><br><span class="line"><span class="comment">    * 否则，该线程的下一次park调用会保证不会被阻塞，但是多次调用就没用，只能保证一次</span></span><br><span class="line"><span class="comment">    * 当然，如果线程没开始运行，就没有任何保证</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> thread the thread to unpark, or &#123;<span class="doctag">@code</span> null&#125;, in which case</span></span><br><span class="line"><span class="comment">    *        this operation has no effect</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unpark</span><span class="params">(Thread thread)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (thread != <span class="keyword">null</span>)</span><br><span class="line">           UNSAFE.unpark(thread);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>park</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Disables the current thread for thread scheduling purposes unless the</span></span><br><span class="line"><span class="comment"> * permit is available.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the permit is available then it is consumed and the call returns</span></span><br><span class="line"><span class="comment"> * immediately; otherwise</span></span><br><span class="line"><span class="comment"> * the current thread becomes disabled for thread scheduling</span></span><br><span class="line"><span class="comment"> * purposes and lies dormant until one of three things happens:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;Some other thread invokes &#123;<span class="doctag">@link</span> #unpark unpark&#125; with the</span></span><br><span class="line"><span class="comment"> * current thread as the target; or</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;Some other thread &#123;<span class="doctag">@linkplain</span> Thread#interrupt interrupts&#125;</span></span><br><span class="line"><span class="comment"> * the current thread; or</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;The call spuriously (that is, for no reason) returns.</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This method does &lt;em&gt;not&lt;/em&gt; report which of these caused the</span></span><br><span class="line"><span class="comment"> * method to return. Callers should re-check the conditions which caused</span></span><br><span class="line"><span class="comment"> * the thread to park in the first place. Callers may also determine,</span></span><br><span class="line"><span class="comment"> * for example, the interrupt status of the thread upon return.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 禁用当前线程已达到不可调度运行的目的，直到有许可可用</span></span><br><span class="line"><span class="comment"> * 如果此方法时就有许可可用(在此之前已经用unpark给了本线程一个许可)</span></span><br><span class="line"><span class="comment"> * 那就会立刻消费这个许可并立刻返回</span></span><br><span class="line"><span class="comment"> * 否则当前线程会被禁止线程调度，保持睡眠直到以下三种情况发生：</span></span><br><span class="line"><span class="comment"> * 1.某个其他的线程调用了unpark，并以当前线程为参数，给一个许可</span></span><br><span class="line"><span class="comment"> * 2.某个其他的线程对当前线程调用了interrupt方法，发了中断（此时不会抛出InterruptedException）</span></span><br><span class="line"><span class="comment"> * 3.The call spuriously (that is, for no reason) returns莫名奇妙的返回了？</span></span><br><span class="line"><span class="comment"> * 因为该方法返回空，所以调用者不会知道是啥原因导致的返回，所以需要检查下原因，</span></span><br><span class="line"><span class="comment"> * 比如查下线程中断状态</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> blocker the synchronization object responsible for this</span></span><br><span class="line"><span class="comment"> *        thread parking</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.6</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">park</span><span class="params">(Object blocker)</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    setBlocker(t, blocker);</span><br><span class="line">    UNSAFE.park(<span class="keyword">false</span>, <span class="number">0L</span>);</span><br><span class="line">    setBlocker(t, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>面向的是线程</li>
+<li>不需要获取监视器</li>
+<li>使用灵活方便</li>
+<li>比较偏底层, 不建议日常使用</li>
+</ul>
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/04/the-storied-life-of-aj/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Carl Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜鸟的成神之旅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/01/04/the-storied-life-of-aj/" itemprop="url">从《岛上书店》说开去</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-04T21:30:00+08:00">
-                2016-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/assets/blogImg/史莱姆.jpg" alt=""></p>
-<h6 id="Picture-by-Anna-Paschenko-for-Doubble"><a href="#Picture-by-Anna-Paschenko-for-Doubble" class="headerlink" title="Picture by Anna Paschenko for Doubble"></a>Picture by <a href="https://dribbble.com/shots/1188443-Sea" target="_blank" rel="noopener">Anna Paschenko</a> for Doubble</h6><p>“无人为孤岛，一书一世界”。<br>小岛书店的褪色招牌上，写着这么一句话。<br>显然，从一开始，这就是一句假话。</p>
-<p><strong>孤独难以描述，偏偏人们喜欢写</strong>。<br>马尔克斯的荒诞深邃，东野圭吾把绝望写进了骨髓里，阿多尼斯却说那是他的一座花园。而在《岛上书店》里，孤独是温暖的。这就很少见。</p>
-<p>看完书时正巧在飞机上，底下应该是海，云层漫漫令人遐想。书中艾莉丝岛的模样依然模糊，倒是人物分明。那间“十五个玛雅宽，二十个玛雅长”的书店越发清晰。它经行光影，穿越时间，仿佛就在眼前。流水般的笔调，不做作的幽默，我猜玛雅会喜欢它的。<br>总的来说，叙事方式不是我喜欢的那种，但就如刚才所说，它比较特殊。令我总是想起一些，以前的事情…</p>
-<p>可是，<strong>孤独难以去写，偏偏人们总遇到</strong>。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/01/04/the-storied-life-of-aj/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
       
     </div>
     
@@ -707,14 +399,40 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/lock/" rel="tag"># lock</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/09/java中的volatile和synchroized/" rel="next" title="java中的volatile和synchroized">
+                <i class="fa fa-chevron-left"></i> java中的volatile和synchroized
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -724,10 +442,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -735,6 +454,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -755,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -818,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#LockSupport"><span class="nav-number">1.</span> <span class="nav-text">LockSupport</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -958,6 +706,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
