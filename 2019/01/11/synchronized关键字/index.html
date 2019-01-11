@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="旧事,">
+  <meta name="keywords" content="java,synchroized,学习,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Picture by Anna Paschenko for Doubble“无人为孤岛，一书一世界”。小岛书店的褪色招牌上，写着这么一句话。显然，从一开始，这就是一句假话。 孤独难以描述，偏偏人们喜欢写。马尔克斯的荒诞深邃，东野圭吾把绝望写进了骨髓里，阿多尼斯却说那是他的一座花园。而在《岛上书店》里，孤独是温暖的。这就很少见。 看完书时正巧在飞机上，底下应该是海，云层漫漫令人遐想。书中艾莉丝岛的">
-<meta name="keywords" content="旧事">
+<meta name="description" content="synchronized锁定的是一个对象, 对象可以自己指定. 普通方法123456789private int count = 10;private Object object;public void test1() &amp;#123;    synchronized (object) &amp;#123;        count--;        System.out.println(count);">
+<meta name="keywords" content="java,synchroized,学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从《岛上书店》说开去">
-<meta property="og:url" content="http://yoursite.com/2016/01/04/the-storied-life-of-aj/index.html">
+<meta property="og:title" content="synchronized关键字">
+<meta property="og:url" content="http://yoursite.com/2019/01/11/synchronized关键字/index.html">
 <meta property="og:site_name" content="菜鸟的成神之旅">
-<meta property="og:description" content="Picture by Anna Paschenko for Doubble“无人为孤岛，一书一世界”。小岛书店的褪色招牌上，写着这么一句话。显然，从一开始，这就是一句假话。 孤独难以描述，偏偏人们喜欢写。马尔克斯的荒诞深邃，东野圭吾把绝望写进了骨髓里，阿多尼斯却说那是他的一座花园。而在《岛上书店》里，孤独是温暖的。这就很少见。 看完书时正巧在飞机上，底下应该是海，云层漫漫令人遐想。书中艾莉丝岛的">
+<meta property="og:description" content="synchronized锁定的是一个对象, 对象可以自己指定. 普通方法123456789private int count = 10;private Object object;public void test1() &amp;#123;    synchronized (object) &amp;#123;        count--;        System.out.println(count);">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/assets/blogImg/史莱姆.jpg">
-<meta property="og:updated_time" content="2019-01-09T06:20:01.852Z">
+<meta property="og:image" content="http://yoursite.com/assets/blogimg/金木研.png">
+<meta property="og:updated_time" content="2019-01-11T09:25:23.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从《岛上书店》说开去">
-<meta name="twitter:description" content="Picture by Anna Paschenko for Doubble“无人为孤岛，一书一世界”。小岛书店的褪色招牌上，写着这么一句话。显然，从一开始，这就是一句假话。 孤独难以描述，偏偏人们喜欢写。马尔克斯的荒诞深邃，东野圭吾把绝望写进了骨髓里，阿多尼斯却说那是他的一座花园。而在《岛上书店》里，孤独是温暖的。这就很少见。 看完书时正巧在飞机上，底下应该是海，云层漫漫令人遐想。书中艾莉丝岛的">
-<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/史莱姆.jpg">
+<meta name="twitter:title" content="synchronized关键字">
+<meta name="twitter:description" content="synchronized锁定的是一个对象, 对象可以自己指定. 普通方法123456789private int count = 10;private Object object;public void test1() &amp;#123;    synchronized (object) &amp;#123;        count--;        System.out.println(count);">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogimg/金木研.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/01/04/the-storied-life-of-aj/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/11/synchronized关键字/">
 
 
 
 
 
-  <title>从《岛上书店》说开去 | 菜鸟的成神之旅</title>
+  <title>synchronized关键字 | 菜鸟的成神之旅</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/04/the-storied-life-of-aj/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/synchronized关键字/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Carl Chen">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从《岛上书店》说开去</h1>
+          <h1 class="post-title" itemprop="name headline">synchronized关键字</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-04T21:30:00+08:00">
-                2016-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:16:09+08:00">
+                2019-01-11
               </time>
             
 
@@ -317,8 +317,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -354,25 +365,20 @@
       
 
       
-        <p><img src="/assets/blogImg/史莱姆.jpg" alt=""></p>
-<h6 id="Picture-by-Anna-Paschenko-for-Doubble"><a href="#Picture-by-Anna-Paschenko-for-Doubble" class="headerlink" title="Picture by Anna Paschenko for Doubble"></a>Picture by <a href="https://dribbble.com/shots/1188443-Sea" target="_blank" rel="noopener">Anna Paschenko</a> for Doubble</h6><p>“无人为孤岛，一书一世界”。<br>小岛书店的褪色招牌上，写着这么一句话。<br>显然，从一开始，这就是一句假话。</p>
-<p><strong>孤独难以描述，偏偏人们喜欢写</strong>。<br>马尔克斯的荒诞深邃，东野圭吾把绝望写进了骨髓里，阿多尼斯却说那是他的一座花园。而在《岛上书店》里，孤独是温暖的。这就很少见。</p>
-<p>看完书时正巧在飞机上，底下应该是海，云层漫漫令人遐想。书中艾莉丝岛的模样依然模糊，倒是人物分明。那间“十五个玛雅宽，二十个玛雅长”的书店越发清晰。它经行光影，穿越时间，仿佛就在眼前。流水般的笔调，不做作的幽默，我猜玛雅会喜欢它的。<br>总的来说，叙事方式不是我喜欢的那种，但就如刚才所说，它比较特殊。令我总是想起一些，以前的事情…</p>
-<p>可是，<strong>孤独难以去写，偏偏人们总遇到</strong>。</p>
-<a id="more"></a>
-<p>那时，A.J.与志趣相投的妻子妮可，放弃了文学博士学位，跑来孤远的艾莉丝岛，开一间书店。仅仅因为“一个地方如果没有一家书店，就算不上一个地方了”。</p>
-<p>然而，生活让A.J.太过失望。<br>挚爱的妮可去世，志趣相投的图书销售员哈维也长辞，镇店之宝《帖木儿》被盗。一件件烦心事让A.J.越发孤僻冷漠，不近人情，排斥一切。内心，渐如书店所在的孤岛。</p>
-<p>“没有人喜欢孤独，只是不喜欢失望。”村上春树说。</p>
-<p>命运像小偷，失望的A.J.却没想过，这个小偷竟会送给他什么。<br>玛雅，一个弃婴，出现在小岛书店中。</p>
-<p>犹豫不决中，还是选择收养玛雅的A.J.，不得不与身边的人进行交流。</p>
-<p>多年以后，A.J.想说“爱”却说不出来的时候，他才明白，“一书一世界”，靠书去排解孤独的说法，分明是句假话。<br>使他不再孤独的，永远是身边的人。</p>
-<p><strong>又由结局后的艾米想到了三毛，特别在今天</strong>。<br>二十五年前的今天，三毛与她的自由，永远的私奔而去。</p>
-<p>得知三毛生平后，再看《撒哈拉的故事》其实是另一番天地，你看到她的车子在沙漠狂奔时，总想帮她踩一脚刹车，因为昨日的欢歌和明日的悲伤总成正比。看《万水千山走遍》时依然心惊，你希望她能流露些悲伤的情绪，合适就好，然而她身影匆匆，仿佛面无表情，走马而过。<br>然后你只能听之任之，对这波澜壮阔的生命鞠一个躬。</p>
-<p>后来你寻到一个解释叫“万物皆空”。原来在时间的不同刻度，孤独都不相雷同，无论描述它的文字，是温暖的，还是刻薄的。它就在那儿，一动不动，仿佛又不在那儿。</p>
-<p>就像，A.J.只能把love，说成glove；<br>就像，玛雅只能在《海滩一日》里回忆着亲生母亲；<br>就像，艾米到最后都深藏着《迟暮花开》的真相；<br>就像，兰比亚斯与伊斯梅最后守护着的那家小岛书店。</p>
-<p>你说这是一本温暖的小说，但它的冷酷又摆在你触手可及的地方。<br>像一张薄薄的被子，你拥之入眠，而后又半夜冷醒。所谓冷暖自知，大抵如此。<br>那，既然不可能雨季不再来，能做的，只有毫无畏惧，热烈而宁静地走遍万水千山吧。</p>
-<p>“一书一世界，一岁一枯荣；无人为孤岛，春风吹又生”。<br>又或许，那句假话，从一开始，就是真的呢。</p>
-<p>——Litten 2016.1.4</p>
+        <p><img src="/assets/blogimg/金木研.png" alt=""></p>
+<p>synchronized锁定的是一个对象, 对象可以自己指定.</p>
+<h3 id="普通方法"><a href="#普通方法" class="headerlink" title="普通方法"></a>普通方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (object) &#123;</span><br><span class="line">        count--;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>锁也可以是自身, this代表当前实例</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        count--;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当整个方法都需要加锁可以简写为</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    count--;</span><br><span class="line">    System.out.println(count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><p>在方法上表示锁定的是当前类的class对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedStaticDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticTest1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        count--;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//相当于:</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticTest2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//这里不能用this(this代表的是调用这个函数的对象的引用,而静态方法是属于类的,不属于对象,静态方法成功加载后,对象还不一定存在 )</span></span><br><span class="line">        <span class="keyword">synchronized</span> (SynchronizedStaticDemo.class) &#123;</span><br><span class="line">            count--;</span><br><span class="line">            System.out.println(count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>同步方法执行不会影响到非同步方法, 业务代码只给写加锁没给读加锁的话可能会引起脏读</strong></p>
 
       
     </div>
@@ -390,7 +396,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/旧事/" rel="tag"># 旧事</a>
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/synchroized/" rel="tag"># synchroized</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
           
         </div>
       
@@ -403,15 +413,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/01/10/多线程并发/" rel="next" title="多线程并发">
+                <i class="fa fa-chevron-left"></i> 多线程并发
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/09/java中的volatile和synchroized/" rel="prev" title="java中的volatile和synchroized">
-                java中的volatile和synchroized <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#Picture-by-Anna-Paschenko-for-Doubble"><span class="nav-number">1.</span> <span class="nav-text">Picture by Anna Paschenko for Doubble</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通方法"><span class="nav-number">1.</span> <span class="nav-text">普通方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法"><span class="nav-number">2.</span> <span class="nav-text">静态方法</span></a></li></ol></div>
             
 
           </div>
